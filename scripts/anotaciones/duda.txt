@@ -1,0 +1,61 @@
+opcion 1
+
+SET SERVEROUTPUT ON
+set verify OFF
+declare
+	vnombre jugadores.nickname%type;
+	nombre jugadores.nickname%type;
+begin
+	nombre := upper('&nombre_jugador');
+	dbms_output.put_line('largo '||length(nombre));
+	dbms_output.put_line('nombre '||nombre);
+	if length(nombre) > 0 then
+		select
+		nickname
+		into vnombre
+		from jugadores
+		where nickname = nombre;
+		dbms_output.put_line('resultado 1: '||vnombre);
+	else
+	  dbms_output.put_line('resultado 2: '||length(nombre));
+	end if;
+end;
+/
+
+Enter value for nombre_jugador: mml
+largo 3
+nombre MML
+declare
+*
+ERROR at line 1:
+ORA-01403: no data found
+ORA-06512: at line
+
+opcion 2
+
+SET SERVEROUTPUT ON
+set verify OFF
+declare
+	vnombre jugadores.nickname%type;
+	nombre jugadores.nickname%type;
+begin
+	nombre := upper('&nombre_jugador');
+	dbms_output.put_line('largo '||length(nombre));
+	dbms_output.put_line('nombre '||nombre);
+	if length(nombre) > 0 then
+		select
+		nickname
+		into vnombre
+		from jugadores
+		where nickname = 'MML';
+		dbms_output.put_line('resultado 1: '||vnombre);
+	else
+	  dbms_output.put_line('resultado 2: '||length(nombre));
+	end if;
+end;
+/
+
+Enter value for nombre_jugador: mml
+largo 3
+nombre MML
+resultado 1: MML

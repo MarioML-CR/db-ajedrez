@@ -1,0 +1,4 @@
+Al insertar con el programa, si por alguna excepción no lo puede hacer, si se genera el consecutivo y en la siguiente inserción lo considera como utilizado, de forma que ese intento se pierde, quedando el consecutivo con valores vacíos.
+
+Pendientes:
+1. El formato de salida de la vista del tablero se debe agregar un tabulado a la izquierda
