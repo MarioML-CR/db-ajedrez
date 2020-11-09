@@ -21,7 +21,7 @@ BEGIN
 	-- captura de variables lexicas
 	apodo := upper('&nickname');
 	vnombre := upper('&nombre');
-	apellido_1 := upper('&apellido');
+	apellido_1 := upper('&apellido1');
 	apellido_2 := upper('&apellido2');
 	-- se carga la informacion en la tabla jugadores
 	insert into jugadores values (apodo,vnombre,apellido_1,apellido_2);
@@ -37,7 +37,7 @@ BEGIN
 		select
 		nickname,
 		nombre,
-		apell
+		apellido1,
 		apellido2
 		from jugadores
 		where nickname = apodo;
