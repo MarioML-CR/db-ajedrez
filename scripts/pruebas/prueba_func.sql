@@ -2,12 +2,16 @@
 set serveroutput on
 set verify OFF
 declare
-	partida_vigente partidas.id_partida%type;
+	ficha number;
+	vcoordenada coordenadas_tablero.coordenada%type;
+	color varchar2;
+	pcoord char(2);
 begin
-	select id_partida
-	into partida_vigente
-	from partida_activa;
-	dbms_output.put_line('update');
+	color := '&color';
+	pcoord := '&coord'
+	vcoordenada := f_coord(pcoord);
+	ficha := f_val_ficha_a_mover(vcoordenada, color);
+	dbms_output.put_line('ficha: '||ficha);
 exception
 		when NO_DATA_FOUND then
 			-- coordenada invalida

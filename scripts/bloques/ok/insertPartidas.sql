@@ -12,6 +12,8 @@ DECLARE
 	apodo1 jugadores.nickname%type;
 	apodo2 jugadores.nickname%type;
 	partida partidas.id_partida%type;
+	registrado1 number;
+	registrado2 number;
 	null_value exception;
 	pragma exception_init(null_value, -1400);
 	jugadorNoExiste   exception;
@@ -23,37 +25,46 @@ DECLARE
 BEGIN
 	apodo1 := upper('&nickname1');
 	apodo2 := upper('&nickname2');
-	/*
-	TODO: Mejorar verificando si existe para que el id sea continuo
-	*/
-	-- se inserta el nickname de ambos jugadores
-	insert into partidas (nickname1, nickname2) values (apodo1,apodo2);
-	-- se carga el id de la partida creada
-	select
-		max(id_partida)
-	into partida
-	from partidas;
-	-- se agrega el texto de salida
-	dbms_output.put_line(chr(13));
-	dbms_output.put_line('La inforamcion se ha cargado satisfactoriamente, y se muestra a continuacion...');
-	dbms_output.put_line(chr(13));
-	dbms_output.put_line('N Partida   Jugador 1                                         Jugador 2                                      ');
-	dbms_output.put_line('_________   _______________________________________________   _______________________________________________');
-	declare
-		cursor c_partida is
-		select
-			(select (nombre||' '||apellido1||' '||apellido2) 
-			from jugadores where nickname = apodo1) as jugador1,
-			(select (nombre||' '||apellido1||' '||apellido2) 
-			from jugadores where nickname = apodo2) as jugador2,
-			fecha_inicio
-		from partidas
-		where id_partida = partida;
-	begin
-		for part in c_partida loop
-			dbms_output.put_line(rpad(partida,12,' ')||rpad(part.jugador1,50,' ')||rpad(part.jugador2,50,' '));
-		end loop;
-	end;
+	registrado1 := f_existe_nickname (apodo1);
+	registrado2 := f_existe_nickname (apodo2);
+	if registrado1 = 1 then
+		if registrado2 = 1 then
+			-- se inserta el nickname de ambos jugadores
+			insert into partidas (nickname1, nickname2) values (apodo1,apodo2);
+			-- se carga el id de la partida creada
+			select
+				max(id_partida)
+			into partida
+			from partidas;
+			-- se agrega el texto de salida
+			dbms_output.put_line(chr(13));
+			dbms_output.put_line('La inforamcion se ha cargado satisfactoriamente, y se muestra a continuacion...');
+			dbms_output.put_line(chr(13));
+			dbms_output.put_line('N Partida   Jugador 1                                         Jugador 2                                      ');
+			dbms_output.put_line('_________   _______________________________________________   _______________________________________________');
+			declare
+				cursor c_partida is
+				select
+					(select (nombre||' '||apellido1||' '||apellido2) 
+					from jugadores where nickname = apodo1) as jugador1,
+					(select (nombre||' '||apellido1||' '||apellido2) 
+					from jugadores where nickname = apodo2) as jugador2,
+					fecha_inicio
+				from partidas
+				where id_partida = partida;
+			begin
+				for part in c_partida loop
+					dbms_output.put_line(rpad(partida,12,' ')||rpad(part.jugador1,50,' ')||rpad(part.jugador2,50,' '));
+				end loop;
+			end;
+		else
+			dbms_output.put_line(chr(13));
+			dbms_output.put_line('El jugador 2 que desea ingresar aun no ha sido creado...');
+		end if;
+	else
+		dbms_output.put_line(chr(13));
+		dbms_output.put_line('El jugador 1 que desea ingresar aun no ha sido creado...');
+	end if;
 EXCEPTION
 	when null_value then
 		dbms_output.put_line(chr(13));

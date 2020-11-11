@@ -3,7 +3,7 @@ CREATE or replace trigger t_ini_estado_partida
   insert ON partidas
   BEGIN
 	declare
-		id fichas.id_ficha%type;
+		id partidas.id_partida%type;
 	begin
 		-- se busca el ultimo id_partida insertado
 		select max(id_partida)

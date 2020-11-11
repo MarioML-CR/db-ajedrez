@@ -26,6 +26,12 @@ begin
 		dbms_output.put_line(chr(13));
 		coordenada1 := f_coord (pcoord1);
 		coordenada2 := f_coord (pcoord2);
+		-- mensaje al usuario
+		if coordenada1 = -1 then
+			dbms_output.put_line('Coordenada invalida');
+		else
+		  
+		end if;
 		idFicha := f_id_fichas (1, 1);
 		dbms_output.put_line('resulatado coord 1: '||coordenada1);
 		dbms_output.put_line('resulatado coord 2: '||coordenada2);

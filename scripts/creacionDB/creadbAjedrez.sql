@@ -93,19 +93,3 @@ column table_name format a30
 column tname format a30
 
 select * from cat;
-
-/* 
-TNAME                          TABTYPE        CLUSTERID
------------------------------- ------------- ----------
-BIN$8IoibJ4vSgK3qtqvoLdgSg==$0 TABLE
-BIN$LB4iagemQwG0hV7X+1R/ww==$0 TABLE
-BIN$x6UG0YbfSYmWFgAMydnQLQ==$0 TABLE
-COORDENADAS_TABLERO            TABLE
-ESTADO_PARTIDAS                TABLE
-FICHAS                         TABLE
-JUGADORES                      TABLE
-MOVIMIENTOS                    TABLE
-PARTIDAS                       TABLE
-
-9 rows selected.
-*/

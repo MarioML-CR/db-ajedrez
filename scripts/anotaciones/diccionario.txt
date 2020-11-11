@@ -1,0 +1,18 @@
+Descripción de las funciones, qué parámetro recibe y qué retornan
+
+Nombre						parámetro que recibe				retornan
+f_id_ficha					id_ficha (partidas)					idFicha (fichas) del jugador que toca mover o null
+f_partida_activa			nada								id_partida(partida_activa)
+f_n_mov						nada								nMov (n movimientos de la partida)
+f_mueve						nada								mueven (quién le toca mover)
+f_full_name					njugador (1 ó 2)					jugador (full name del jugador)
+f_existe_nickname			nickname (jugadores)				res (1 si exite, 0 si no)
+f_coord						coordenada (coordenadas_tablero)	coordenada (coordenadas_tablero)
+
+
+Trigger
+
+Nombre						Cuando se activa					qué hace?
+t_partida_activa			al insertar en partidas				inserta o actualizar la partida activa en partida_activa
+t_mov						al insertar en movimientos			actualiza la tabla estado_partidas con el movimiento realizado
+t_ini_estado_partida		al insertar en partidas				inserta en la taba estado_partidas la posición inicial del juego
