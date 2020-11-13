@@ -16,3 +16,11 @@ Nombre						Cuando se activa					qué hace?
 t_partida_activa			al insertar en partidas				inserta o actualizar la partida activa en partida_activa
 t_mov						al insertar en movimientos			actualiza la tabla estado_partidas con el movimiento realizado
 t_ini_estado_partida		al insertar en partidas				inserta en la taba estado_partidas la posición inicial del juego
+
+
+bloques						qué hace
+ini							Define la partida vigente.
+							recibe 3 variables lexicas (el nickname del jugador 1, el nickname del jugador 2 y el número de partida).
+							Si los datos no concuerda genera el mensaje de error.
+
+partidas_activas			retorna el listado de partidas activas del nickname recibido como variable léxica.
