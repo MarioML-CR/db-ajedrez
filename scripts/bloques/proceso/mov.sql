@@ -12,6 +12,8 @@ declare
 	idFicha1 fichas.id_ficha%type;
 	idFicha2 fichas.id_ficha%type;
 	partida partida_activa.id_partida%type;
+	validar number(2);
+	nombreFicha fichas.nombre%type;
 begin
 	pcoord1 := '&coordenada1';
 	pcoord2 := '&coordenada1';	
@@ -35,38 +37,51 @@ begin
 				dbms_output.put_line(chr(13));
 				dbms_output.put_line('Coordenada invalida');
 			else
+				-- se carga el id_ficha de la posicion final
 				select id_ficha
 				into idFicha2
 				from estado_partidas
 				where id_partida = partida and id_cord_tab = coordenada2;
 				dbms_output.put_line('idficha2 '||idFicha2);
+				-- se carga el color de la ficha que mueve
 				mueven := f_mueve;
 				dbms_output.put_line('mueven '||mueven);
-				if mueven = 'Blancas' then
-					if idFicha2 in (7,8,9,10,11,12) then
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('mover validando y captura de pieza negra');
-					elsif idFicha2 is null then
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('mover validando sin captura de pieza negra');
-					else
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('No puede mover es ficha propia');
-					end if;
-				elsif mueven = 'Negras' then
-					if idFicha2 in (1,2,3,4,5,6) then
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('mover validando y captura de pieza blanca');
-					elsif idFicha2 is null then
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('mover validando sin captura de pieza blanca');
-					else
-						dbms_output.put_line(chr(13));
-						dbms_output.put_line('No puede mover es ficha propia');
-					end if;
-				else
+				-- se carga el nombre de la ficha que va a mover
+				nombreFicha := f_nombre_ficha(idFicha1);
+				if mueven = 'Blancas' and idFicha2 in (1,2,3,4,5,6) then
 					dbms_output.put_line(chr(13));
-					dbms_output.put_line('No se ha inicializado ninguna partiada...');
+					dbms_output.put_line('La coordenada '||pcoord1||' contiene la ficha '||nombreFicha||' blanca');
+				elsif mueven = 'Negras' and idFicha2 in (7,8,9,10,11,12) then
+					dbms_output.put_line(chr(13));
+					dbms_output.put_line('La coordenada '||pcoord1||' contiene la ficha '||nombreFicha||' negra');
+				else
+					validar := f_validar(coordenada1, coordenada2, idFicha1, mueven);
+					if validar <> 1 then
+						dbms_output.put_line(chr(13));
+						dbms_output.put_line('El movimiento que intenta hacer de la pieza '||nombreFicha||' no es permitido');
+					else
+						-- Se realizan lo update en las tablas movimientos, estado partidas
+						dbms_output.put_line('update tabla estado_partida agregando la pieza blanca');
+						dbms_output.put_line('insert en tabla movimientos');
+						commit;
+						--if mueven = 'Blancas' then
+							--if idFicha2 in (7,8,9,10,11,12) then
+								--dbms_output.put_line(chr(13));
+								--dbms_output.put_line('mover validando y captura de pieza negra');
+							--else
+								--dbms_output.put_line(chr(13));
+								--dbms_output.put_line('mover validando sin captura de pieza negra');
+							--end if;
+						--else
+							--if idFicha2 in (1,2,3,4,5,6) then
+								--dbms_output.put_line(chr(13));
+								--dbms_output.put_line('mover validando y captura de pieza blanca');
+							--else
+								--dbms_output.put_line(chr(13));
+								--dbms_output.put_line('mover validando sin captura de pieza blanca');
+							--end if;
+						--end if;
+					end if;
 				end if;
 			end if;
 		end if;
