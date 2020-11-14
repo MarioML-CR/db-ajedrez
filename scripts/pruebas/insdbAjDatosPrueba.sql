@@ -32,3 +32,6 @@ where id_cord_tab = 12 and id_partida = 1;
 update estado_partidas
 set id_ficha = 6
 where id_cord_tab = 28 and id_partida = 1;
+
+
+alter table movimientos add movimiento number(3) not null;

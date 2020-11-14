@@ -41,7 +41,7 @@ begin
 		--dbms_output.put_line(chr(13));
 		--dbms_output.put_line('Partida invalido... '||num);
 		-- se determina el ultimo movimiento
-		select count(0)
+		select coalesce(max(a.id_partida),0)
 		into numMov
 		from movimientos a
 		join partidas b on a.id_partida = b.id_partida
@@ -68,9 +68,10 @@ begin
 			dbms_output.put_line('Negras: '||jugador1);
 		end if;
 		dbms_output.put_line('Siguiente movimiento: '||mueven);
-		-- update de la tabla partida activa
-		update partida_activa
-		set id_partida = partida;
+		-- se elimina el registro existente y se carga un nuevo registro con la partida vigente
+		delete partida_activa;
+		insert into partida_activa (id_partida) values (partida);
+		commit;
 	end if;
 exception
 	when VALUE_ERROR then

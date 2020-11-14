@@ -1,5 +1,5 @@
 /*
-Ingreso de movimientos
+Ingreso de movimientos, recibe como parámetro las coordenas (la de la posición inicial o de la pieza que va a mover, y la de posición que quedará la pieza)
 */
 SET SERVEROUTPUT ON
 set verify OFF
@@ -8,31 +8,32 @@ declare
 	pcoord2 coordenadas_tablero.coordenada%type;
 	coordenada1 coordenadas_tablero.id_cord_tab%type;
 	coordenada2 coordenadas_tablero.id_cord_tab%type;
+	letra1 fichas.sigla%type;
+	letra2 fichas.sigla%type;
+	captura varchar(2);
 	mueven varchar2(9);
 	idFicha1 fichas.id_ficha%type;
 	idFicha2 fichas.id_ficha%type;
 	partida partida_activa.id_partida%type;
 	validar number(2);
 	nombreFicha fichas.nombre%type;
+	anotacion movimientos.notacion%type;
+	prox_mov movimientos.movimiento%type;
 begin
 	pcoord1 := '&coordenada1';
 	pcoord2 := '&coordenada1';	
 	coordenada1 := f_coord (pcoord1);
 	coordenada2 := f_coord (pcoord2);
-	dbms_output.put_line('coordenada1 '||coordenada1);
-	dbms_output.put_line('coordenada2 '||coordenada2);
 	if coordenada1 < 0 then
 		dbms_output.put_line(chr(13));
 		dbms_output.put_line('coordenada invalida');
 	else
 		partida := f_partida_activa;
-		dbms_output.put_line('f_partida_activa '||f_partida_activa);
 		if partida < 0 then
 			dbms_output.put_line(chr(13));
 			dbms_output.put_line('Aun no se ha creado una partida');
 		else
 			idFicha1 := f_id_ficha (coordenada1);
-			dbms_output.put_line('idFicha1 '||idFicha1);
 			if idFicha1 < 0 then
 				dbms_output.put_line(chr(13));
 				dbms_output.put_line('Coordenada invalida');
@@ -42,12 +43,20 @@ begin
 				into idFicha2
 				from estado_partidas
 				where id_partida = partida and id_cord_tab = coordenada2;
-				dbms_output.put_line('idficha2 '||idFicha2);
 				-- se carga el color de la ficha que mueve
 				mueven := f_mueve;
-				dbms_output.put_line('mueven '||mueven);
 				-- se carga el nombre de la ficha que va a mover
 				nombreFicha := f_nombre_ficha(idFicha1);
+				-- se carga la letra de la pieza que ataca
+				letra1 := f_sigla(idFicha1);
+				-- se carga la letra de la pieza del contrincante, si existe captura
+				letra2 := f_sigla(idFicha2);
+				-- se define la notacion de la captura
+				if letra2 not in ('x', 'y', 'z') then
+					captura := 'x'||letra2;
+				else
+					captura := '';
+				end if;
 				if mueven = 'Blancas' and idFicha2 in (1,2,3,4,5,6) then
 					dbms_output.put_line(chr(13));
 					dbms_output.put_line('La coordenada '||pcoord1||' contiene la ficha '||nombreFicha||' blanca');
@@ -60,46 +69,36 @@ begin
 						dbms_output.put_line(chr(13));
 						dbms_output.put_line('El movimiento que intenta hacer de la pieza '||nombreFicha||' no es permitido');
 					else
-						-- Se realizan lo update en las tablas movimientos, estado partidas
-						dbms_output.put_line('update tabla estado_partida agregando la pieza blanca');
-						dbms_output.put_line('insert en tabla movimientos');
+						-- se agrega la notacion del movimiento
+						anotacion := letra1||pcoord1||pcoord2||captura;
+						-- se carga la siguiente partida
+						prox_mov := f_n_mov + 1;
+						-- Se realizan la insercion del movimiento en las tabla movimientos
+						insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (prox_mov,partida,idFicha1,coordenada1,coordenada2,anotacion);
 						commit;
-						--if mueven = 'Blancas' then
-							--if idFicha2 in (7,8,9,10,11,12) then
-								--dbms_output.put_line(chr(13));
-								--dbms_output.put_line('mover validando y captura de pieza negra');
-							--else
-								--dbms_output.put_line(chr(13));
-								--dbms_output.put_line('mover validando sin captura de pieza negra');
-							--end if;
-						--else
-							--if idFicha2 in (1,2,3,4,5,6) then
-								--dbms_output.put_line(chr(13));
-								--dbms_output.put_line('mover validando y captura de pieza blanca');
-							--else
-								--dbms_output.put_line(chr(13));
-								--dbms_output.put_line('mover validando sin captura de pieza blanca');
-							--end if;
-						--end if;
 					end if;
 				end if;
 			end if;
 		end if;
-		
 	end if;
-	
 exception
 	when NO_DATA_FOUND then
 		-- coordenada invalida
+		dbms_output.put_line(chr(13));
 		dbms_output.put_line('coordenada invalida');
+		rollback;
 		--coordenada := -1;
 	when VALUE_ERROR then
 		-- Excede el numero de caracteres permitidos
+		dbms_output.put_line(chr(13));
 		dbms_output.put_line('Excede el numero de caracteres permitidos');
+		rollback;
 		--coordenada := -2;
 	when OTHERS then
+		dbms_output.put_line(chr(13));
 		dbms_output.put_line('Error '||SQLCODE|| ' detalle '||SQLERRM);
+		rollback;
 		--coordenada := SQLCODE;
-	--return coordenada;
 end;
 /
+start viewTablero

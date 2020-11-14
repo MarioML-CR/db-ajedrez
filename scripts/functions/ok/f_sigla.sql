@@ -1,27 +1,27 @@
 /*
-función que recibe un parametro, el id_ficha, y retorna el nombre de la misma.
+función que recibe un parametro, el id_ficha, y retorna la sigla de la misma.
 Si el parametro ingresado no es correcto retorna alguno de los siguientes numeros {-1, -2} segun corresponda.
 */
-create or replace function f_nombre_ficha (idFicha number)
-return varchar is
-	nombreFicha fichas.nombre%type;
+create or replace function f_sigla (idFicha number)
+return char is
+	letra fichas.sigla%type;
 begin
 	begin
 		select
-			nombre
-		into nombreFicha
+			sigla
+		into letra
 		from fichas
 		where id_ficha = idFicha;
 	exception
 		when NO_DATA_FOUND then
 			-- coordenada invalida
-			nombreFicha := 'ci';
+			letra := 'x';
 		when VALUE_ERROR then
 			-- Excede el numero de caracteres permitidos
-			nombreFicha := 'ne';
+			letra := 'y';
 		when OTHERS then
-			nombreFicha := to_char(SQLCODE);
+			letra := 'z';
 	end;
-	return nombreFicha;
+	return letra;
 end;
 /

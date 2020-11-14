@@ -12,7 +12,7 @@ begin
 		if partida < 0 then
 			nMov := -1; -- no existe partida
 		else
-			select count(0)
+			select coalesce(max(movimiento),0)
 			into nMov
 			from movimientos
 			where id_partida = partida;

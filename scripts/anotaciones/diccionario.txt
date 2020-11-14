@@ -1,5 +1,7 @@
 Descripción de las funciones, qué parámetro recibe y qué retornan
 
+Function
+
 Nombre						parámetro que recibe				retornan
 f_id_ficha					id_ficha (partidas)					idFicha (fichas) del jugador que toca mover o null
 f_partida_activa			nada								id_partida(partida_activa)
@@ -8,7 +10,7 @@ f_mueve						nada								mueven (quién le toca mover)
 f_full_name					njugador (1 ó 2)					jugador (full name del jugador)
 f_existe_nickname			nickname (jugadores)				res (1 si exite, 0 si no)
 f_coord						coordenada (coordenadas_tablero)	coordenada (coordenadas_tablero)
-
+f_sigla						el idFicha							la letra de la ficha
 
 Trigger
 
@@ -17,6 +19,16 @@ t_partida_activa			al insertar en partidas				inserta o actualizar la partida ac
 t_mov						al insertar en movimientos			actualiza la tabla estado_partidas con el movimiento realizado
 t_ini_estado_partida		al insertar en partidas				inserta en la taba estado_partidas la posición inicial del juego
 
+Procedures
+Nombre						qué hace?
+p_jaquemate					genera el jaque mate para el que lo invoca
+							se hace un update de la tabla movimientos agregado ++
+							se elimina la partida activa
+							se hace update de la tabla partidas agregando el resultado
+							se hace update de la tabla partidas agregando la fecha del resultado
+p_mov						se genera los mivimientos de la partida activa
+p_mov_his					se genera los mivimientos de la partida que se ingrese, sea activa o no			
+
 
 bloques						qué hace
 ini							Define la partida vigente.
@@ -24,3 +36,6 @@ ini							Define la partida vigente.
 							Si los datos no concuerda genera el mensaje de error.
 
 partidas_activas			retorna el listado de partidas activas del nickname recibido como variable léxica.
+mov							recibe las coordenas mediante variables lexicas, hace las validaciones y realiza la insercion en la tabla movimientos
+
+Pendiente: eliminar las columnas: fila y columna de la tabla ya que no se utilizaron en nada.
