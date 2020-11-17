@@ -1,0 +1,34 @@
+.   Movimientos de la partida 362
+
+.   numero movimiento   movimiento de   descripcion movimiento
+.   -----------------   -------------   ----------------------
+.                   1         Blancas                    Cg1f3
+.                   2          Negras                    pd7d5
+.                   3         Blancas                    Pe2e3
+.                   4          Negras                    cb8a6
+.                   5         Blancas                   Af1b5+
+.                   6          Negras                    pc7c6
+.                   7         Blancas                  Ab5a6xc
+.                   8          Negras                  pb7a6xA
+.                   9         Blancas                      0-0
+.                  10          Negras                    cg8f6
+.                  11         Blancas                    Pd2d3
+.                  12          Negras                    ph7h5
+.                  13         Blancas                    Pc2c4
+.                  14          Negras                    pe7e6
+.                  15         Blancas                    Cf3e5
+.                  16          Negras                    th8h6
+.                  17         Blancas                  Ce5c6xp
+.                  18          Negras                    dd8d7
+.                  19         Blancas                    Cc6e5
+.                  20          Negras                  pd5c4xP
+.                  21         Blancas                  Ce5d7xd
+.                  22          Negras                  ac8d7xC
+.                  23         Blancas                    Dd1f3
+.                  24          Negras                    0-0-0
+.                  25         Blancas                   Df3a8+
+.                  26          Negras                    rc8c7
+.                  27         Blancas                 Da8a7xp+
+.                  28          Negras                    rc7d6
+.                  29         Blancas                   Da7c5++
+

@@ -19,6 +19,10 @@ declare
 	nombreFicha fichas.nombre%type;
 	anotacion movimientos.notacion%type;
 	prox_mov movimientos.movimiento%type;
+	rey coordenadas_tablero.id_cord_tab%type;
+	rey_op coordenadas_tablero.id_cord_tab%type;
+	jaque number(1);
+	jaque_op number(1);
 begin
 	pcoord1 := '&coordenada1';
 	pcoord2 := '&coordenada1';	
@@ -74,8 +78,34 @@ begin
 						-- se carga la siguiente partida
 						prox_mov := f_n_mov + 1;
 						-- Se realizan la insercion del movimiento en las tabla movimientos
+						mueven := f_mueve;
+						dbms_output.put_line('mueven antes '||mueven);
 						insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (prox_mov,partida,idFicha1,coordenada1,coordenada2,anotacion);
-						commit;
+						mueven := f_mueve;
+						--dbms_output.put_line('mueven despues '||mueven);
+						rey := f_rey;
+						--dbms_output.put_line('rey '||rey);
+						rey_op := f_rey_op;
+						--dbms_output.put_line('rey_op '||rey_op);
+						jaque_op := f_jaque_op(rey_op);
+						jaque := f_jaque(rey);
+						--dbms_output.put_line('jaque rey '||jaque);
+						--dbms_output.put_line('jaque_op rey_op '||jaque_op);
+						if jaque_op = 0 then
+							if jaque = 1 then
+							  update movimientos
+							  set notacion = anotacion || '+'
+							  where movimiento = prox_mov and id_partida = partida;
+							  dbms_output.put_line('Jaque al rey de las piezas '||mueven);
+							end if;
+							--dbms_output.put_line('realiza commit');
+							commit;
+						else
+							dbms_output.put_line(chr(13));
+							dbms_output.put_line('movimiento invalido, deja al rey en jaque...');
+							--dbms_output.put_line('realiza rollback');
+							rollback;
+						end if;
 					end if;
 				end if;
 			end if;

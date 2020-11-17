@@ -2,12 +2,8 @@
 función que recibe un parametro, la coordenada del tablero, y retorna su estado con relación al jaque.
 si está en jaque retorna 1, si no retorna 0 y si no existe partida activa retorna -1.
 */
---create or replace function f_jaque (coordenada number)
---return number is
-SET SERVEROUTPUT ON
-set verify OFF
-declare
-	coordenada estado_partidas.id_cord_tab%type;
+create or replace function f_jaque (coordenada number)
+return number is
 	mueven varchar2(9);
 	jaque number(1);
 	i number(2);
@@ -18,7 +14,6 @@ declare
 	type rango is varray(8) of integer;
 	recorrido rango;
 begin
-	coordenada := &coordenada;
 	mueven := f_mueve;
 	recorrido := rango(17, 10, -6, -15, -17, -10, 6, 15);
 	if mueven = 'Blancas' then
@@ -41,7 +36,6 @@ begin
 				-- se busca la primera ficha que esté en esta dirección
 				if idficha in (2 + f, 4 + f) then
 					jaque := 1;
-					dbms_output.put_line('norte '||jaque);
 				end if;
 				i := 66; -- para salir del ciclo
 			end if;
@@ -59,7 +53,6 @@ begin
 					-- se busca la primera ficha que esté en esta dirección
 					if idficha in (2 + f, 4 + f) then
 						jaque := 1;
-						dbms_output.put_line('sur '||jaque);
 					end if;
 					i := 0; -- para salir del ciclo
 				end if;
@@ -87,7 +80,6 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (2 + f, 4 + f) then
 							jaque := 1;
-							dbms_output.put_line('este '||jaque);
 						end if;
 						i := lim + 1; -- para salir del ciclo
 					end if;
@@ -116,7 +108,6 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (2 + f, 4 + f) then
 							jaque := 1;
-							dbms_output.put_line('oeste '||jaque);
 						end if;
 						i := lim - 1; -- para salir del ciclo
 					end if;
@@ -150,10 +141,8 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (1 + f, 2 + f, 3 + f, 6 + f) and i = (coordenada + 9) then
 							jaque := 1;
-							dbms_output.put_line('noreste '||jaque);
 						elsif idficha in (2 + f, 3 + f) and i > (coordenada + 9) then
 							jaque := 1;
-							dbms_output.put_line('noreste 2 '||jaque);
 						end if;
 						i := lim + 1; -- para salir del ciclo
 					end if;
@@ -187,10 +176,8 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (1 + f, 2 + f, 3 + f, 6 + f) and i = (coordenada - 9) then
 							jaque := 1;
-							dbms_output.put_line('suroeste '||jaque);
 						elsif idficha in (2 + f, 3 + f) and i < (coordenada - 9) then
 							jaque := 1;
-							dbms_output.put_line('suroeste 2 '||jaque);
 						end if;
 						i := lim; -- para salir del ciclo
 					end if;
@@ -224,10 +211,8 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (1 + f, 2 + f, 3 + f, 6 + f) and i = (coordenada + 7) then
 							jaque := 1;
-							dbms_output.put_line('noroeste 1 '||jaque);
 						elsif idficha in (2 + f, 3 + f) and i > (coordenada + 7) then
 							jaque := 1;
-							dbms_output.put_line('noroeste 2 '||jaque);
 						end if;
 						i := lim; -- para salir del ciclo
 					end if;
@@ -261,10 +246,8 @@ begin
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (1 + f, 2 + f, 3 + f, 6 + f) and i = (coordenada - 7) then
 							jaque := 1;
-							dbms_output.put_line('sureste 1 '||jaque);
 						elsif idficha in (2 + f, 3 + f) and i < (coordenada - 7) then
 							jaque := 1;
-							dbms_output.put_line('sureste 2 '||jaque);
 						end if;
 						i := lim; -- para salir del ciclo
 					end if;
@@ -284,7 +267,6 @@ begin
 							-- se busca la primera ficha que esté en esta dirección
 							if idficha = (5 + f) then
 								jaque := 1;
-								dbms_output.put_line('caballo '||jaque);
 								exit;
 							end if;
 						end if;
@@ -295,6 +277,6 @@ begin
 	else
 		jaque := -1; -- no existe una partida activa
 	end if;
-	--return jaque;
+	return jaque;
 end;
 /

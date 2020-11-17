@@ -2,11 +2,12 @@
 Procedimiento para finalizar partida aceptando un jaque mate
 */
 SET SERVEROUTPUT ON
-create or replace procedure p_jaquemate
+create or replace procedure p_mate
 	is
 	partida partida_activa.id_partida%type;
 	ult_mov movimientos.movimiento%type;
 	anotacion movimientos.notacion%type;
+	ajuste movimientos.notacion%type;
 	apodo1 jugadores.nickname%type;
 	apodo2 jugadores.nickname%type;
 	result partidas.resultado%type;
@@ -22,9 +23,14 @@ begin
 				from movimientos
 				where id_partida = partida and movimiento = ult_mov; 
 			end;
+			-- se define el ajuste para la notacion de jaque mate
+			ajuste := substr (anotacion,length(anotacion),length(anotacion));
+			if ajuste <> '+' then
+				ajuste := '++';
+			end if;
 			-- se realiza el update en la tabla movimiento
 			update movimientos
-			set notacion = to_char(anotacion||'++')
+			set notacion = to_char(anotacion||ajuste)
 			where id_partida = partida and movimiento = ult_mov;
 			-- se elimina la partida activa
 			delete partida_activa;
@@ -60,6 +66,6 @@ exception
 	when OTHERS then
 		dbms_output.put_line(chr(13));
 		dbms_output.put_line('Error '||SQLCODE|| ' detalle '||SQLERRM);
-		rollback;	
+		rollback;
 end;
 /

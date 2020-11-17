@@ -13,8 +13,8 @@ CREATE or replace trigger t_ini_estado_partida
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (1, id, 4);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (2, id, 5);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (3, id, 3);
-		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (4, id, 1);
-		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (5, id, 2);
+		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (4, id, 2);
+		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (5, id, 1);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (6, id, 3);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (7, id, 5);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (8, id, 4);
@@ -69,11 +69,11 @@ CREATE or replace trigger t_ini_estado_partida
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (57, id, 10);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (58, id, 11);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (59, id, 9);
-		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (60, id, 7);
-		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (61, id, 8);
+		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (60, id, 8);
+		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (61, id, 7);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (62, id, 9);
 		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (63, id, 11);
-		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (64, id, 8);
+		insert into estado_partidas (id_cord_tab, id_partida, id_ficha) values (64, id, 10);
 	end;
   END;
 /

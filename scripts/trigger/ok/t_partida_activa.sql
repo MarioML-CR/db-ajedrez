@@ -20,7 +20,6 @@ CREATE or replace trigger t_partida_activa
 		-- se elimina el registro existente y se carga un nuevo registro con la partida vigente
 		delete partida_activa;
 		insert into partida_activa (id_partida) values (partida);
-		commit;
 	exception
 		when NO_DATA_FOUND then
 			-- se realiza la actualización del movimiento
