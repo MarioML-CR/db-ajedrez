@@ -30,5 +30,5 @@
 .                  26          Negras                    rc8c7
 .                  27         Blancas                 Da8a7xp+
 .                  28          Negras                    rc7d6
-.                  29         Blancas                   Da7c5++
+.                  29         Blancas                  Da7c5++
 

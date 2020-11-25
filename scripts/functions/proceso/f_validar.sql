@@ -7,12 +7,12 @@ return number is
 	validar number;
 begin
 		--case idFicha1
-			--when 1 then validar := f_rey(coordenada1, coordenada2, mueven);
-			--when 2 then validar := f_dama(coordenada1, coordenada2, mueven);
-			--when 3 then validar := f_alfil(coordenada1, coordenada2, mueven);
-			--when 4 then validar := f_torre(coordenada1, coordenada2, mueven);
-			--when 5 then validar := f_caballo(coordenada1, coordenada2, mueven);
-			--when 6 then validar := f_peon(coordenada1, coordenada2, mueven);
+			--when 1 then validar := f_rey_val(coordenada1, coordenada2, mueven);
+			--when 2 then validar := f_dama_val(coordenada1, coordenada2, mueven);
+			--when 3 then validar := f_alfil_val(coordenada1, coordenada2, mueven);
+			--when 4 then validar := f_torre_val(coordenada1, coordenada2, mueven);
+			--when 5 then validar := f_caballo_val(coordenada1, coordenada2, mueven);
+			--when 6 then validar := f_peon_val(coordenada1, coordenada2, mueven);
 			--else validar := -2; -- valor invalido
 		--end case;
 		validar := 1;

@@ -102,4 +102,3 @@ begin
 	return validar;
 end;
 /
-
