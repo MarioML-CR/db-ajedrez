@@ -6,7 +6,7 @@ return number is
 	validar number;
 begin
 	validar := f_alfil_val(coordenada1 , coordenada2, mueven);
-	if validar = 1 then
+	if validar = -2 then
 		validar := f_torre_val(coordenada1 , coordenada2, mueven);
 	end if;
 	return validar;

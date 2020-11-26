@@ -19,6 +19,7 @@ declare
 	nombreFicha fichas.nombre%type;
 	anotacion movimientos.notacion%type;
 	prox_mov movimientos.movimiento%type;
+	max_mov movimientos.movimiento%type; -- para coronar
 	rey coordenadas_tablero.id_cord_tab%type;
 	rey_op coordenadas_tablero.id_cord_tab%type;
 	jaque number(1);
@@ -69,9 +70,12 @@ begin
 					dbms_output.put_line('La coordenada '||pcoord1||' contiene la ficha '||nombreFicha||' negra');
 				else
 					validar := f_validar(coordenada1, coordenada2, idFicha1, mueven);
-					if validar <> 1 then
+					if validar = -2 then
 						dbms_output.put_line(chr(13));
 						dbms_output.put_line('El movimiento que intenta hacer de la pieza '||nombreFicha||' no es permitido');
+					elsif validar = -1 then
+						dbms_output.put_line(chr(13));
+						dbms_output.put_line('El movimiento que intenta hacer de la pieza '||nombreFicha||' es invalido');
 					else
 						-- se agrega la notacion del movimiento
 						anotacion := letra1||pcoord1||pcoord2||captura;
@@ -81,6 +85,18 @@ begin
 						mueven := f_mueve;
 						dbms_output.put_line('mueven antes '||mueven);
 						insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (prox_mov,partida,idFicha1,coordenada1,coordenada2,anotacion);
+						-- verificando si hay coronacion
+						if mod(max_mov,2) = 0 and idFicha1 = 6 and coordenada2 in (1, 2, 3, 4, 5, 6, 7, 8)  then
+							-- último movimiento de blancas
+							update movimientos
+							set notacion = notacion ||'=D'
+							where movimiento = prox_mov and id_partida = partida;
+						elsif mod(max_mov,2) <> 0 and idFicha1 = 12 and coordenada2 in (57, 58, 59, 60, 61, 62, 63, 64) then
+							-- último movimiento de negras
+							update movimientos
+							set notacion = notacion ||'=d'
+							where movimiento = prox_mov and id_partida = partida;
+						end if;
 						mueven := f_mueve;
 						--dbms_output.put_line('mueven despues '||mueven);
 						rey := f_rey;
