@@ -1,6 +1,7 @@
 /*
 función que retorna 1 si el movimiento es válido. Recibe dos parametros, la coordenada de la posición actual y la coordenada de la posición final Si el movimiento no es válido retorna 0.
 */
+SET SERVEROUTPUT ON
 create or replace function f_alfil_val (coordenada1 number, coordenada2 number, mueven varchar2)
 return number is
 	validar number := -2;
@@ -24,7 +25,7 @@ begin
 		-- se valida si el movimiento es diagonal con pendiente negativa
 		case 
 			when coordenada1 in (56, 63) then recorrido := rango(56, 63, 0, 0, 0, 0, 0, 0);
-			when coordenada1 in (48, 55, 62) then recorrido := rango(8, 55, 62, 0, 0, 0, 0, 0);
+			when coordenada1 in (48, 55, 62) then recorrido := rango(48, 55, 62, 0, 0, 0, 0, 0);
 			when coordenada1 in (40, 47, 54, 61) then recorrido := rango(40, 47, 54, 61, 0, 0, 0, 0);
 			when coordenada1 in (32, 39, 46, 53, 60) then recorrido := rango(32, 39, 46, 53, 60, 0, 0, 0);
 			when coordenada1 in (24, 31, 38, 45, 52, 59) then recorrido := rango(24, 31, 38, 45, 52, 59, 0, 0);
@@ -57,20 +58,20 @@ begin
 		-- se valida si el movimiento es diagonal con pendiente positiva
 		if movimiento not in (1, 2) then
 			case 
-				when coordenada1 in (49, 58) then recorrido := rango(49, 58, 100, 100, 100, 100, 100, 100);
-				when coordenada1 in (41, 50, 59) then recorrido := rango(41, 50, 59, 100, 100, 100, 100, 100);
-				when coordenada1 in (33, 42, 51, 60) then recorrido := rango(33, 42, 51, 60, 100, 100, 100, 100);
-				when coordenada1 in (25, 34, 43, 52, 61) then recorrido := rango(25, 34, 43, 52, 61, 100, 100, 100);
-				when coordenada1 in (17, 26, 35, 44, 53, 62) then recorrido := rango(17, 26, 35, 44, 53, 62, 100, 100);
-				when coordenada1 in (9, 18, 27, 36, 45, 54, 63) then recorrido := rango(9, 18, 27, 36, 45, 54, 63, 100);
+				when coordenada1 in (49, 58) then recorrido := rango(49, 58, 0, 0, 0, 0, 0, 0);
+				when coordenada1 in (41, 50, 59) then recorrido := rango(41, 50, 59, 0, 0, 0, 0, 0);
+				when coordenada1 in (33, 42, 51, 60) then recorrido := rango(33, 42, 51, 60, 0, 0, 0, 0);
+				when coordenada1 in (25, 34, 43, 52, 61) then recorrido := rango(25, 34, 43, 52, 61, 0, 0, 0);
+				when coordenada1 in (17, 26, 35, 44, 53, 62) then recorrido := rango(17, 26, 35, 44, 53, 62, 0, 0);
+				when coordenada1 in (9, 18, 27, 36, 45, 54, 63) then recorrido := rango(9, 18, 27, 36, 45, 54, 63, 0);
 				when coordenada1 in (1, 10, 19, 28, 37, 46, 55, 64) then recorrido := rango(1, 10, 19, 28, 37, 46, 55, 64);
-				when coordenada1 in (2, 11, 20, 29, 38, 47, 56) then recorrido := rango(2, 11, 20, 29, 38, 47, 56, 100);
-				when coordenada1 in (3, 12, 21, 30, 39, 48) then recorrido := rango(3, 12, 21, 30, 39, 48, 100, 100);
-				when coordenada1 in (4, 13, 22, 31, 40) then recorrido := rango(4, 13, 22, 31, 40, 100, 100, 100);
-				when coordenada1 in (5, 14, 23, 32) then recorrido := rango(5, 14, 23, 32, 100, 100, 100, 100);
-				when coordenada1 in (6, 15, 24) then recorrido := rango(6, 15, 24, 100, 100, 100, 100, 100);
-				when coordenada1 in (7, 16) then recorrido := rango(7, 16, 100, 100, 100, 100, 100, 100);
-				when coordenada1 in (8, 57) then recorrido := rango(100, 100, 100, 100, 100, 100, 100, 100);
+				when coordenada1 in (2, 11, 20, 29, 38, 47, 56) then recorrido := rango(2, 11, 20, 29, 38, 47, 56, 0);
+				when coordenada1 in (3, 12, 21, 30, 39, 48) then recorrido := rango(3, 12, 21, 30, 39, 48, 0, 0);
+				when coordenada1 in (4, 13, 22, 31, 40) then recorrido := rango(4, 13, 22, 31, 40, 0, 0, 0);
+				when coordenada1 in (5, 14, 23, 32) then recorrido := rango(5, 14, 23, 32, 0, 0, 0, 0);
+				when coordenada1 in (6, 15, 24) then recorrido := rango(6, 15, 24, 0, 0, 0, 0, 0);
+				when coordenada1 in (7, 16) then recorrido := rango(7, 16, 0, 0, 0, 0, 0, 0);
+				when coordenada1 in (8, 57) then recorrido := rango(100, 0, 0, 0, 0, 0, 0, 0);
 			end case;
 			-- se define el tipo de movimiento
 			if recorrido(1) <> 100 then
@@ -92,7 +93,7 @@ begin
 		-- se validan los movimientos
 		if movimiento = 1 then
 			for j in reverse 1..8  loop
-				if recorrido(j) < coordenada1 then
+				if recorrido(j) < coordenada1 and recorrido(j) <> 0 then
 					select coalesce(sum(id_ficha),70)
 					into idficha
 					from estado_partidas

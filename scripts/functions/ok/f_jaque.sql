@@ -8,7 +8,7 @@ return number is
 	jaque number(1);
 	i number(2);
 	f number(1);
-	lim number(2);
+	lim number(3);
 	idficha fichas.id_ficha%type;
 	partida partida_activa.id_partida%type;
 	type rango is varray(8) of integer;
@@ -103,7 +103,7 @@ begin
 					select coalesce(sum(id_ficha),0)
 					into idficha
 					from estado_partidas
-					where id_partida = partida and id_cord_tab = i and id_ficha in (2 + f, 4 + f);
+					where id_partida = partida and id_cord_tab = i;
 					if idficha > 0 then
 						-- se busca la primera ficha que esté en esta dirección
 						if idficha in (2 + f, 4 + f) then
@@ -131,6 +131,7 @@ begin
 					when coordenada in (5, 14, 23, 32) then lim := 32;
 					when coordenada in (6, 15, 24) then lim := 24;
 					when coordenada in (7, 16) then lim := 16;
+					when coordenada in (8, 57) then lim := 0;
 				end case;
 				while i <= lim loop
 					select coalesce(sum(id_ficha),0)
@@ -166,6 +167,7 @@ begin
 					when coordenada in (5, 14, 23, 32) then lim := 5;
 					when coordenada in (6, 15, 24) then lim := 6;
 					when coordenada in (7, 16) then lim := 7;
+					when coordenada in (8, 57) then lim := 100;
 				end case;
 				while i >= lim loop
 					select coalesce(sum(id_ficha),0)
@@ -201,6 +203,7 @@ begin
 					when coordenada in (4, 11, 18, 25) then lim := 25;
 					when coordenada in (3, 10, 17) then lim := 17;
 					when coordenada in (2, 9) then lim := 9;
+					when coordenada in (1, 64) then lim := 0;
 				end case;
 				while i <= lim loop
 					select coalesce(sum(id_ficha),0)
@@ -236,6 +239,7 @@ begin
 					when coordenada in (4, 11, 18, 25) then lim := 4;
 					when coordenada in (3, 10, 17) then lim := 3;
 					when coordenada in (2, 9) then lim := 2;
+					when coordenada in (1, 64) then lim := 100;
 				end case;
 				while i >= lim loop
 					select coalesce(sum(id_ficha),0)
@@ -272,7 +276,7 @@ begin
 						end if;
 					end if;
 				end loop;
-			end if;
+			end if;	
 		end if;
 	else
 		jaque := -1; -- no existe una partida activa
