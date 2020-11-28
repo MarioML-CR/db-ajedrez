@@ -53,6 +53,8 @@ begin
 			update partidas
 			set fecha_fin = sysdate
 			where id_partida = partida;
+			dbms_output.put_line(chr(13));
+			dbms_output.put_line(result);
 			commit;
 		else
 			dbms_output.put_line(chr(13));

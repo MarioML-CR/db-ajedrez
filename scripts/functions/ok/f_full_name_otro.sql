@@ -1,7 +1,7 @@
 /*
 función retorna el nombre completo del jugador, si existe.
 */
-create or replace function f_full_name_otrshowo (vnick VARCHAR2)
+create or replace function f_full_name_otro (vnick VARCHAR2)
 return varchar2 is
 	jugador varchar2(47);
 	nickname1 jugadores.nickname%type;

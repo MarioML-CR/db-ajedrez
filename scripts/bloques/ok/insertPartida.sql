@@ -85,3 +85,4 @@ EXCEPTION
 		rollback;
 END; 
 /
+start viewTablero

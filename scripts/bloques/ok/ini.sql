@@ -48,9 +48,9 @@ begin
 		where a.id_partida = partida and ((b.nickname1 = nickname01 and b.nickname2 = nickname02) or (b.nickname1 = nickname02 and b.nickname2 = nickname01));
 		-- se determina las piezas que mueven
 		if mod(numMov,2) = 0 then
-			mueven := 'Blancas';
-		else
 			mueven := 'Negras';
+		else
+			mueven := 'Blancas';
 		end if;
 		-- se determina el jugador con las piezas blancas
 		select nickname1
