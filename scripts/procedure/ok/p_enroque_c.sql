@@ -8,8 +8,8 @@ create or replace procedure p_enroque_c
 	partida partida_activa.id_partida%type;
 	nFichas number(2);
 	mFichas number(2);
-	f number(1);
-	g number(1);
+	f coordenadas_tablero.id_cord_tab%type;
+	g fichas.id_ficha%type;
 	rey coordenadas_tablero.id_cord_tab%type;
 	rey_op coordenadas_tablero.id_cord_tab%type;
 	jaque number(1);
@@ -63,8 +63,8 @@ begin
 			dbms_output.put_line('rey '||rey);
 			rey_op := f_rey_op;
 			dbms_output.put_line('rey_op '||rey_op);
-			jaque_op := f_jaque_op(rey_op);
-			jaque := f_jaque(rey);
+			jaque_op := f_jaque_op(rey); -- inicial con f_jaque_op(rey_op);
+			jaque := f_jaque(rey_op); -- inicial con f_jaque(rey);
 			dbms_output.put_line('jaque rey '||jaque);
 			dbms_output.put_line('jaque_op rey_op '||jaque_op);
 			if jaque = 0 then

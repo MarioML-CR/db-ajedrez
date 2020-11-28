@@ -45,7 +45,7 @@ begin
 			anotacion := '0-0-0'; 
 			prox_mov := f_n_mov + 1;
 			insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (prox_mov,partida,(1 + g),(5 + f),(3 + f),anotacion);
-			dbms_output.put_line('movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion '||prox_mov||' '||partida||' '||(1 + g)||' '||(5 + f)||' '||(3 + f)||' '||anotacion);
+			--dbms_output.put_line('movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion '||prox_mov||' '||partida||' '||(1 + g)||' '||(5 + f)||' '||(3 + f)||' '||anotacion);
 			--insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (9,362,1,5,7,'0-0');
 			-- update de la torre en tabla estado_partidas
 			dbms_output.put_line('id_cord_tab   id_partida '||(1 + f)||' '||partida);
@@ -65,8 +65,8 @@ begin
 			dbms_output.put_line('rey '||rey);
 			rey_op := f_rey_op;
 			dbms_output.put_line('rey_op '||rey_op);
-			jaque_op := f_jaque_op(rey_op);
-			jaque := f_jaque(rey);
+			jaque_op := f_jaque_op(rey);
+			jaque := f_jaque(rey_op);
 			dbms_output.put_line('jaque rey '||jaque);
 			dbms_output.put_line('jaque_op rey_op '||jaque_op);
 			if jaque = 0 then
@@ -75,7 +75,7 @@ begin
 					set notacion = anotacion || '+'
 					where movimiento = prox_mov and id_partida = partida;
 				end if;
-				dbms_output.put_line('realiza commit');
+				--dbms_output.put_line('realiza commit');
 				commit;
 			else
 				dbms_output.put_line(chr(13));

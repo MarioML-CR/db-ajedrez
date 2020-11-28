@@ -82,7 +82,7 @@ begin
 		dbms_output.put_line(chr(13));
 		dbms_output.put_line('Aun no se definido la partida activa, ejecute uno de los dos comandos:');
 		dbms_output.put_line('start ini');
-		dbms_output.put_line('start insertPartidas');
+		dbms_output.put_line('start insertPartida');
 	else
 		jugador1 := f_full_name(1); -- se carga el nombre del jugador 1
 		jugador2 := f_full_name(2); -- se carga el nombre del jugador 2

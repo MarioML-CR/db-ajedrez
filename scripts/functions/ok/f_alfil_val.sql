@@ -1,7 +1,6 @@
 /*
 función que retorna 1 si el movimiento es válido. Recibe dos parametros, la coordenada de la posición actual y la coordenada de la posición final Si el movimiento no es válido retorna 0.
 */
-SET SERVEROUTPUT ON
 create or replace function f_alfil_val (coordenada1 number, coordenada2 number, mueven varchar2)
 return number is
 	validar number := -2;
