@@ -61,7 +61,7 @@ begin
 				end loop;
 			elsif movimiento = 2 and coordenada1 between 49 and 56 and mueven = 'Negras' then
 				validar := 1;
-				for j in reverse 5..7  loop
+				for j in reverse 5..6  loop
 					select coalesce(sum(id_ficha),70)
 					into idficha
 					from estado_partidas

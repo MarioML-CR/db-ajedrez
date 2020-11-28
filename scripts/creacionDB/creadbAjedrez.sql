@@ -39,7 +39,7 @@ create table partidas
 	nickname2 varchar2(15) not null,
 	fecha_inicio date default sysdate,
 	fecha_fin date,
-	resultado varchar2(500),
+	resultado varchar2(60),
 	constraint pk_id_partida_partidas primary key (id_partida),
 	constraint fk_nickname1_partidas foreign key (nickname1) references jugadores (nickname),
 	constraint fk_nickname2_partidas foreign key (nickname2) references jugadores (nickname)

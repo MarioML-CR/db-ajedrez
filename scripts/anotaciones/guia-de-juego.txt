@@ -51,6 +51,18 @@ exec p_mate					==> jaque mate del jugador activo
 
 	gana MML con las fichas negras por jaque mate
 
+exec p_empate				==> pide al jugador oponente terminar en empate.
+
+	.     El jugador XINIA VARGAS BENAVIDES.
+	.     Solicita al jugador MARIO MARTINEZ LANUZA finalizar con empate
+	.     Si MARIO MARTINEZ LANUZA lo acepta debe ejecutar la siguiente linea...
+	.     exec p_empate_respuesta;
+
+p_empate_respuesta			==> finaliza la partida agregando en la tabla movimientos columna notación el texto "1/2 - 1/2"
+								agrega en la tabla partida en la columna resultado la leyenda de empate
+
+	.     La partida ha finalizado con empate en el movimiento 13
+
 exec p_hist_partidas		==> histórico de partidas segun el nickname
 
 	.   Resumen de partidas en las que participa el jugador:
