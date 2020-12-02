@@ -1,7 +1,7 @@
 /*
-función que retorna la coordenada del rey del jugador vigente
+función que retorna la coordenada del rey del jugador 1 ó 2
 */
-create or replace function f_rey
+create or replace function f_rey(n number)
 return number is
 	rey coordenadas_tablero.id_cord_tab%type;
 	f number(1);
@@ -11,10 +11,18 @@ begin
 	partida := f_partida_activa;
 	if partida > 0 then
 		mueven := f_mueve;
-		if mueven = 'Blancas' then
-			f := 0;
+		if n = 1 then
+			if mueven = 'Blancas' then
+				f := 0;
+			else
+				f := 6;
+			end if;
 		else
-			f := 6;
+			if mueven = 'Blancas' then
+				f := 6;
+			else
+				f := 0;
+			end if;
 		end if;
 		-- se define la coordenada del rey
 		select coalesce(sum(id_cord_tab),0) 

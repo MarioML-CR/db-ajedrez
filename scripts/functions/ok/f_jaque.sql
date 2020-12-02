@@ -1,8 +1,8 @@
 /*
-función que recibe un parametro, la coordenada del tablero, y retorna su estado con relación al jaque.
+función que recibe dos parametro, la coordenada del tablero y si es el rey blanco o negro, y retorna su estado con relación al jaque.
 si está en jaque retorna 1, si no retorna 0 y si no existe partida activa retorna -1.
 */
-create or replace function f_jaque (coordenada number)
+create or replace function f_jaque (coordenada number, n number)
 return number is
 	mueven varchar2(9);
 	jaque number(1);
@@ -16,11 +16,20 @@ return number is
 begin
 	mueven := f_mueve;
 	recorrido := rango(17, 10, -6, -15, -17, -10, 6, 15);
-	if mueven = 'Blancas' then
-		f := 6;
+	if n = 1 then
+		if mueven = 'Blancas' then
+			f := 6;
+		else
+			f := 0;
+		end if;
 	else
-		f := 0;
+		if mueven = 'Blancas' then
+			f := 0;
+		else
+			f := 6;
+		end if;
 	end if;
+	
 	-- se carga la partida activa
 	partida := f_partida_activa;
 	if partida > 0 then

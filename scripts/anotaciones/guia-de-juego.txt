@@ -58,7 +58,7 @@ exec p_empate				==> pide al jugador oponente terminar en empate.
 	.     Si MARIO MARTINEZ LANUZA lo acepta debe ejecutar la siguiente linea...
 	.     exec p_empate_respuesta;
 
-p_empate_respuesta			==> finaliza la partida agregando en la tabla movimientos columna notación el texto "1/2 - 1/2"
+p_empate_respuesta			==> finaliza la partida agregando en la tabla movimientos columna notación el texto "="
 								agrega en la tabla partida en la columna resultado la leyenda de empate
 
 	.     La partida ha finalizado con empate en el movimiento 13

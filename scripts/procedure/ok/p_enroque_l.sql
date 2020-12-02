@@ -61,12 +61,12 @@ begin
 			-- update estado_partidas
   			-- set id_ficha = 4 where id_cord_tab = 6 and id_partida = 362;
 			dbms_output.put_line('2 id_cord_tab  id_partida '||(4 + f)||' '||partida);
-			rey := f_rey;
+			rey := f_rey(1);
 			dbms_output.put_line('rey '||rey);
-			rey_op := f_rey_op;
+			rey_op := f_rey(2);
 			dbms_output.put_line('rey_op '||rey_op);
-			jaque_op := f_jaque_op(rey);
-			jaque := f_jaque(rey_op);
+			jaque_op := f_jaque(rey, 2);
+			jaque := f_jaque(rey_op, 1);
 			dbms_output.put_line('jaque rey '||jaque);
 			dbms_output.put_line('jaque_op rey_op '||jaque_op);
 			if jaque = 0 then

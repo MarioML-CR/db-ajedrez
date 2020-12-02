@@ -118,12 +118,12 @@ begin
 						end if;
 						mueven := f_mueve;
 						--dbms_output.put_line('mueven despues '||mueven);
-						rey := f_rey;
+						rey := f_rey(1);
 						--dbms_output.put_line('rey '||rey);
-						rey_op := f_rey_op;
+						rey_op := f_rey(2);
 						--dbms_output.put_line('rey_op '||rey_op);
-						jaque_op := f_jaque_op(rey_op);
-						jaque := f_jaque(rey);
+						jaque_op := f_jaque(rey_op, 2);
+						jaque := f_jaque(rey, 1);
 						--dbms_output.put_line('jaque rey '||jaque);
 						--dbms_output.put_line('jaque_op rey_op '||jaque_op);
 						if jaque_op = 0 then
