@@ -7,6 +7,12 @@ declare
 	partida partida_activa.id_partida%type;
 begin
 	partida := f_partida_activa;
-	dbms_output.put_line('partida activa: '||partida);
+	if partida = - 1 then
+		dbms_output.put_line(chr(13));
+		dbms_output.put_line('No hay partida activa...');
+	else
+		dbms_output.put_line('partida activa: '||partida);
+	end if;
+	
 end;
 /

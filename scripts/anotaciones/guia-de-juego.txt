@@ -18,6 +18,8 @@ start insertPartida			==> crea
 	_________   _______________________________________________   _______________________________________________
 	501         OSCAR DE LA ROCHA BAMIREZ                         FERNANDA GRANADOS ARIAS
 
+start partida_activa		==> indica si existe partida actvia
+
 start partidas_proceso 		==> reporte de partidas activas por jugador (requiere el nickname)
 
 	El detalle de partidas en las que participa el jugador MARIO MARTINEZ LANUZA son:
