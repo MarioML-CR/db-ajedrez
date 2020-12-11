@@ -20,8 +20,6 @@ DECLARE
 	pragma exception_init(jugadorNoExiste  , -02291);
 	largo_texto exception;
 	pragma exception_init(largo_texto, -6502);
-	--jugardor_no_existe exception;
-	--pragma exception_init(convertion_error, -2291);
 BEGIN
 	apodo1 := upper('&nickname1');
 	apodo2 := upper('&nickname2');

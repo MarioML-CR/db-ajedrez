@@ -88,7 +88,4 @@ create table partida_activa
 	constraint pk_id_partida_partida_activa foreign key (id_partida) references partidas (id_partida)
 );
 
-column table_name format a30
-column tname format a30
 
-select * from cat;

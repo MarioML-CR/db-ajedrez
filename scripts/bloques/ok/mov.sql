@@ -39,7 +39,6 @@ begin
 			dbms_output.put_line('coordenada invalida 1');
 		else
 			idFicha1 := f_id_ficha (coordenada1);
-			--dbms_output.put_line('idFicha1 '||idFicha1);
 			if idFicha1 < 0 then
 				dbms_output.put_line(chr(13));
 				dbms_output.put_line('Movimiento invalido');
@@ -52,7 +51,6 @@ begin
 				-- se carga el color de la ficha que mueve
 				mueven := f_mueve;
 				-- se carga el nombre de la ficha que va a mover
-				--dbms_output.put_line('idFicha2  '||idFicha2);
 				nombreFichaIni := f_nombre_ficha(idFicha1);
 				-- se carga la letra de la pieza que ataca
 				letra1 := f_sigla(idFicha1);
@@ -65,7 +63,6 @@ begin
 				else
 					captura := '';
 				end if;
-				--dbms_output.put_line('mueven '||mueven||' idFicha2 '||idFicha2);
 				if mueven = 'Blancas' and idFicha2 in (1,2,3,4,5,6) then
 					dbms_output.put_line(chr(13));
 					dbms_output.put_line('La coordenada '||pcoord2||' contiene la ficha '||nombreFichaFin||' ficha blanca');
@@ -73,7 +70,6 @@ begin
 					dbms_output.put_line(chr(13));
 					dbms_output.put_line('La coordenada '||pcoord1||' contiene la ficha '||nombreFichaFin||' ficha negra');
 				else
-					--dbms_output.put_line('coordenada1 '||coordenada1||' coordenada2 '||coordenada2||' idFicha1 '||idFicha1||' mueven '||mueven);
 					validar := f_validar(coordenada1, coordenada2, idFicha1, mueven);
 					if validar = -2 then
 						dbms_output.put_line(chr(13));
@@ -88,13 +84,9 @@ begin
 						prox_mov := f_n_mov + 1;
 						-- Se realizan la insercion del movimiento en las tabla movimientos
 						mueven := f_mueve;
-						--dbms_output.put_line('mueven antes '||mueven);
 						insert into movimientos (movimiento, id_partida, id_ficha, pos_inicial, pos_final, notacion) values (prox_mov,partida,idFicha1,coordenada1,coordenada2,anotacion);
 						-- verificando si hay coronacion
-						--dbms_output.put_line('Para coronar actual mueven '||mueven);
-						--dbms_output.put_line('mod(prox_mov,2) '||mod(prox_mov,2)||' idFicha1 '||idFicha1||' coordenada2 '||coordenada2);
-						if mod(prox_mov,2) <> 0 and idFicha1 = 6 and coordenada2 in (57, 58, 59, 60, 61, 62, 63, 64) then
-						--dbms_output.put_line('coranacion de blancas');	
+						if mod(prox_mov,2) <> 0 and idFicha1 = 6 and coordenada2 in (57, 58, 59, 60, 61, 62, 63, 64) then	
 							-- cambiar la pieza en estado partidas
 							update estado_partidas
 							set id_ficha = 2
@@ -104,8 +96,6 @@ begin
 							set notacion = notacion ||'=D'
 							where movimiento = prox_mov and id_partida = partida;
 						elsif mod(prox_mov,2) = 0 and idFicha1 = 12 and coordenada2 in (1, 2, 3, 4, 5, 6, 7, 8) then
-						--dbms_output.put_line('coranacion de negras');
-							--dbms_output.put_line('update id_ficha');
 							-- cambiar la pieza en estado partidas
 							update estado_partidas
 							set id_ficha = 8
@@ -114,18 +104,12 @@ begin
 							update movimientos
 							set notacion = notacion ||'=d'
 							where movimiento = prox_mov and id_partida = partida;
-							--dbms_output.put_line('dos');
 						end if;
 						mueven := f_mueve;
-						--dbms_output.put_line('mueven despues '||mueven);
 						rey := f_rey(1);
-						--dbms_output.put_line('rey '||rey);
 						rey_op := f_rey(2);
-						--dbms_output.put_line('rey_op '||rey_op);
 						jaque_op := f_jaque(rey_op, 2);
 						jaque := f_jaque(rey, 1);
-						--dbms_output.put_line('jaque rey '||jaque);
-						--dbms_output.put_line('jaque_op rey_op '||jaque_op);
 						if jaque_op = 0 then
 							if jaque = 1 then
 								update movimientos
@@ -133,9 +117,7 @@ begin
 							  	where movimiento = prox_mov and id_partida = partida;
 								dbms_output.put_line(chr(13));
 							  	dbms_output.put_line('Jaque al rey de las piezas '||mueven);
-							--dbms_output.put_line('tres');
 							end if;
-							--dbms_output.put_line('realiza commit');
 							commit;
 						else
 							dbms_output.put_line(chr(13));

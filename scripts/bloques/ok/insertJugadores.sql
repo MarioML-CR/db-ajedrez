@@ -15,8 +15,6 @@ DECLARE
 	registrado number;
 	NULL_VALUE exception;
 	pragma exception_init(null_value, -1400);
-	--largo_texto exception;
-	--pragma exception_init(largo_texto, -6502);
 BEGIN
 	-- captura de variables lexicas
 	apodo := upper('&nickname');
@@ -58,16 +56,10 @@ EXCEPTION
 		dbms_output.put_line(chr(13));
 		dbms_output.put_line('El texto ingresado excede el numero de caracteres permitidos');
 		rollback;
-	--when dup_val_on_index then
-		--dbms_output.put_line(chr(13));
-		--DBMS_OUTPUT.PUT_LINE('Ya existe un jugador con ese nickname: por favor ingrese otro');
 	when NULL_VALUE then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('Solamente el segundo apellido puede ser nulo, por favor ingrese la informacion solicitada ');
 		rollback;
-	--when largo_texto then
-		--dbms_output.put_line(chr(13));
-		--DBMS_OUTPUT.PUT_LINE('El texto que intenta ingresar es muy largo, por favor ingrese uno mas corto.');
 	when others then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('Error de Oracle: '||SQLCODE||' - '||SQLERRM );

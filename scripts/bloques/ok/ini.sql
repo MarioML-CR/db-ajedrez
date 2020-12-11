@@ -38,8 +38,6 @@ begin
 		-- se determina si representan una partida real
 		select 1 into num
 		from partidas where id_partida = partida and ((nickname1 = nickname01 and nickname2 = nickname02) or (nickname1 = nickname02 and nickname2 = nickname01));
-		--dbms_output.put_line(chr(13));
-		--dbms_output.put_line('Partida invalido... '||num);
 		-- se determina el ultimo movimiento
 		select coalesce(max(a.id_partida),0)
 		into numMov

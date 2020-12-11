@@ -10,7 +10,6 @@ begin
 	partida := f_partida_activa;
 	if partida > 0 then
 		last_mov := f_n_mov;
-		dbms_output.put_line('last_mov '||last_mov);
 		if last_mov > 0 then
 			-- se carga la notación anterior
 			select notacion
