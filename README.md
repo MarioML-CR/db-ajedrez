@@ -80,10 +80,10 @@ b)	**t_mov**, este trigger actualiza el estado de la partida en el tablero.
 
 c)	**t_partida_activa**, actualiza el estado de la partida en el tablero.
 
+### Modelo entidad relación
+
+![modelo físico](img/modelo-fisico.png)
+
 ### Modelo físico
-
-`![modelo físico](img/modelo-fisico.png)
-
-### Modelo relacional
 
 ![modelo relacional](img/modelo-relacional-(ER).png)
