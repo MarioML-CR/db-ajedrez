@@ -1,0 +1,107 @@
+Guion de presentación
+
+start insertJugadores		==> inserta jugador
+							1.	Hacer muestra de las capturas de errores
+							2.	Insertar correctamente
+
+	La inforamcion se ha cargado satisfactoriamente, y se muestra a continuacion...
+
+	Nickname          Nombre            Primer apellido   Segundo apellido
+	_______________   _______________   _______________   ________________
+	ODB               OSCAR             DE LA ROCHA       BAMIREZ
+
+start insertPartida			==> crea
+							1.	captura de errores
+							2. 	creación de partida
+
+	N Partida   Jugador 1                                         Jugador 2
+	_________   _______________________________________________   _______________________________________________
+	501         OSCAR DE LA ROCHA BAMIREZ                         FERNANDA GRANADOS ARIAS
+
+start partida_activa		==> indica si existe partida actvia
+
+start partidas_proceso 		==> reporte de partidas activas por jugador (requiere el nickname)
+
+	El detalle de partidas en las que participa el jugador MARIO MARTINEZ LANUZA son:
+	partida   jugador Blancas   jugador negras   fecha inicio
+	....461               AMV              MML      27-NOV-20
+
+start ini					==> establece como partida activa una partida ya existente (requiere el nickname de ambos y el número de partida)
+
+	datos de la partida...
+	Blancas: ANDRES MARTINEZ VARGAS
+	Negras: MARIO MARTINEZ LANUZA
+	Siguiente movimiento: Blancas
+
+start viewtablero			==> se visualiza el tablero de la partida activa
+
+start mov					==> jugar (hacer movimientos)
+
+exec p_enroque_c			==> enroque corto del jugador activo
+
+	.   numero movimiento   movimiento de   descripcion movimiento
+	.   -----------------   -------------   ----------------------
+	.                   9         Blancas                      0-0
+
+exec p_enroque_l			==> enroque largo del jugador activo
+
+	.   numero movimiento   movimiento de   descripcion movimiento
+	.   -----------------   -------------   ----------------------
+	.                  24          Negras                    0-0-0
+
+exec p_mate					==> jaque mate del jugador activo
+
+	gana MML con las fichas negras por jaque mate
+
+exec p_empate				==> pide al jugador oponente terminar en empate.
+
+	.     El jugador XINIA VARGAS BENAVIDES.
+	.     Solicita al jugador MARIO MARTINEZ LANUZA finalizar con empate
+	.     Si MARIO MARTINEZ LANUZA lo acepta debe ejecutar la siguiente linea...
+	.     exec p_empate_respuesta;
+
+p_empate_respuesta			==> finaliza la partida agregando en la tabla movimientos columna notación el texto "="
+								agrega en la tabla partida en la columna resultado la leyenda de empate
+
+	.     La partida ha finalizado con empate en el movimiento 13
+
+exec p_hist_partidas		==> histórico de partidas segun el nickname
+
+	.   Resumen de partidas en las que participa el jugador:
+	.   MARIO MARTINEZ LANUZA
+
+	.     partida   fecha inicio   fecha finalizacion   resultado
+	.   ---------   ------------   ------------------
+	---------------------------------------------------------
+	.         521      27-NOV-20
+	.         522      27-NOV-20            27-NOV-20   gana MML con las fichas negras por jaque mate
+	.         381      17-NOV-20            17-NOV-20   gana XVB con las fichas blancas por jaque mate
+	.         401      18-NOV-20            26-NOV-20   gana XVB con las fichas blancas por jaque mate
+	.         362      16-NOV-20            17-NOV-20   gana CHESS con las fichas blancas por jaque mate
+	.         421      27-NOV-20            27-NOV-20   gana DMV con las fichas negras por jaque mate
+	.         441      27-NOV-20            27-NOV-20   gana XVB con las fichas negras por jaque mate
+	.         442      27-NOV-20            27-NOV-20   gana XVB con las fichas negras por jaque mate
+	.         461      27-NOV-20            27-NOV-20   gana AMV con las fichas negras por jaque mate
+exec p_mov					==> movimientos del juego activo
+
+	.   Movimientos de la partida 362
+
+	.   numero movimiento   movimiento de   descripcion movimiento
+	.   -----------------   -------------   ----------------------
+	.                   1         Blancas                    Cg1f3
+	.                   2          Negras                    pd7d5
+
+	.                  28          Negras                    rc7d6
+	.                  29         Blancas                  Da7c5++
+
+exec p_mov_his				==> movimientos del juego finalizados (que la tabla partidas la columna resultado tiene info)
+
+	.   Movimientos de la partida 362
+
+	.   numero movimiento   movimiento de   descripcion movimiento
+	.   -----------------   -------------   ----------------------
+	.                   1         Blancas                    Cg1f3
+	.                   2          Negras                    pd7d5
+
+	.                  28          Negras                    rc7d6
+	.                  29         Blancas                  Da7c5++

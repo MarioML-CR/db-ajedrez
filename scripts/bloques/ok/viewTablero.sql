@@ -80,7 +80,9 @@ begin
 	partida := f_partida_activa; -- se carga el numero de partida activa
 	if partida < 0 then
 		dbms_output.put_line(chr(13));
-		dbms_output.put_line('Aun no se ha creado una partida');
+		dbms_output.put_line('Aun no se definido la partida activa, ejecute uno de los dos comandos:');
+		dbms_output.put_line('start ini');
+		dbms_output.put_line('start insertPartida');
 	else
 		jugador1 := f_full_name(1); -- se carga el nombre del jugador 1
 		jugador2 := f_full_name(2); -- se carga el nombre del jugador 2
@@ -90,15 +92,13 @@ begin
 			-- creacion del cursor
 			cursor c_coord_tab is
 			select 
-				d.fila,
-				d.col,
 				d.coordenada,
 				a.sigla
 			from fichas a
 			join estado_partidas b on b.id_ficha = a.id_ficha
 			join coordenadas_tablero d on d.id_cord_tab = b.id_cord_tab
 			where b.id_partida = partida
-			order by d.fila, d.col;
+			order by d.coordenada;
 		begin
 			for cc in c_coord_tab loop
 				case cc.coordenada
@@ -206,7 +206,7 @@ begin
 			dbms_output.put_line('. 1  |    '||a1|| '    |    '||b1|| '    |    '||c1|| '    |    '||d1|| '    |    '||e1|| '    |    '||f1|| '    |    '||g1|| '    |    '||h1|| '    |    ');
 			dbms_output.put_line('.    |         |         |         |         |         |         |         |         |');
 			dbms_output.put_line(rpad('.    -',86,'-'));
-			dbms_output.put_line('.         A         B         C         D         E         F         F         H');
+			dbms_output.put_line('.         A         B         C         D         E         F         G         H');
 		end;
 	end if;
 exception

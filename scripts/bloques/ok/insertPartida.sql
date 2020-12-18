@@ -20,8 +20,6 @@ DECLARE
 	pragma exception_init(jugadorNoExiste  , -02291);
 	largo_texto exception;
 	pragma exception_init(largo_texto, -6502);
-	--jugardor_no_existe exception;
-	--pragma exception_init(convertion_error, -2291);
 BEGIN
 	apodo1 := upper('&nickname1');
 	apodo2 := upper('&nickname2');
@@ -31,6 +29,7 @@ BEGIN
 		if registrado2 = 1 then
 			-- se inserta el nickname de ambos jugadores
 			insert into partidas (nickname1, nickname2) values (apodo1,apodo2);
+			commit;
 			-- se carga el id de la partida creada
 			select
 				max(id_partida)
@@ -69,14 +68,19 @@ EXCEPTION
 	when null_value then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('Debe ingresar el nickname de cada jugador, igual como se ingreso al crearlo ');
+		rollback;
 	when jugadorNoExiste   then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('Uno o ambos jugadores no han sido creados');
+		rollback;
 	when largo_texto then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('El texto que intenta ingresar es muy largo, por favor ingrese uno mas corto.');
+		rollback;
 	when others then
 		dbms_output.put_line(chr(13));
 		DBMS_OUTPUT.PUT_LINE('Error de Oracle: '||SQLCODE||' detalle: '||SQLERRM );
+		rollback;
 END; 
 /
+start viewTablero

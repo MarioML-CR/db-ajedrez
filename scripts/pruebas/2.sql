@@ -26,4 +26,3 @@ exception
 		dbms_output.put_line('ficha: '||coordenada1||' codigo '||SQLCODE);
 end;
 /
-
